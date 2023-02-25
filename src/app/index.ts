@@ -3,6 +3,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
+import 'dotenv/config';
 import express from 'express';
 import { ethers } from 'ethers';
 import { BlockVisionProvider, BvNetwork } from 'blockvision.js';
@@ -21,7 +22,7 @@ const ROYALTY_RECIPIENT_ADDRESS = '0x18c1ea679Aad89e495cA0Fae3a7092c239D755d3';
 // const wallet_address = '0xF78747c437acc5667a6E994BCDB0926f03995711';
 
 const provider: ethers.JsonRpcProvider = new ethers.JsonRpcProvider(
-    'https://eth-mainnet.blockvision.org/v1/2MEF8TNgnBJxHEqVKlih83xIYL5',
+    process.env.RPC_URL,
     1
 );
 
