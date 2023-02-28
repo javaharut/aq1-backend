@@ -50,6 +50,11 @@ $ docker compose up
 - *.vscode/launch.json* has debug config to attach to running docker container for debugging
 using vscode.
 
+## API Calls
+```sh
+{root_url}/dashboard?wallet_address={user_wallet_address}
+```
+Retrieves stats including AQ1 holding count. If wallet address is not specified api provides only generic stats abotu AQ1 collection
 ## Notes
 
 - name test files with '.spec.ts' suffix to exclude them in production build.
