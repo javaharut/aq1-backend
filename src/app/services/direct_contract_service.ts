@@ -7,7 +7,7 @@ import provider from '../config/provider';
 
 import getEthPrice from '../utils/getEthPrice';
 
-const extractContractData = async (wallet_address: string) => {
+const extractContractData = async (wallet_address: string | null) => {
   const aq1Contract = new ethers.Contract(
     constants.AQ_CONTRACT,
     aqAbi,
@@ -26,17 +26,22 @@ const extractContractData = async (wallet_address: string) => {
     provider
   );
 
-  const [tokenCount, { value, decimals }, treasuryBalance, wethBalance, blurPoolBalance] = await Promise.all(
-    [
-      aq1Contract.balanceOf(wallet_address),
-      getEthPrice(provider),
-      provider.getBalance(constants.ROYALTY_RECIPIENT_ADDRESS),
-      wethContract.balanceOf(constants.ROYALTY_RECIPIENT_ADDRESS),
-      blurPoolContract.balanceOf(constants.ROYALTY_RECIPIENT_ADDRESS),
-    ]
-  );
+  const [
+    tokenCount,
+    { value, decimals },
+    treasuryBalance,
+    wethBalance,
+    blurPoolBalance,
+  ] = await Promise.all([
+    wallet_address ? aq1Contract.balanceOf(wallet_address) : null,
+    getEthPrice(provider),
+    provider.getBalance(constants.ROYALTY_RECIPIENT_ADDRESS),
+    wethContract.balanceOf(constants.ROYALTY_RECIPIENT_ADDRESS),
+    blurPoolContract.balanceOf(constants.ROYALTY_RECIPIENT_ADDRESS),
+  ]);
 
-  const treasuryStake = (Number(tokenCount) / constants.TOTAL_BALANCE) * 100;
+  const treasuryStake =
+    (Number(tokenCount || 0) / constants.TOTAL_BALANCE) * 100;
 
   const treasuryAssetValue = (treasuryBalance * value) / 10n ** decimals;
   const ethPriceInUSD = Number((value * 100n) / 10n ** decimals) / 100;

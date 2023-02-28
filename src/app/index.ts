@@ -9,10 +9,9 @@ const app = express();
 
 app.get('/dashboard', async (req: Request, res: Response) => {
   const result = {
-    contract_direct_data:
-      req.query && req.query.wallet_address
-        ? await extractContractData((req.query as any).wallet_address)
-        : null,
+    contract_direct_data: await extractContractData(
+      (req.query as any).wallet_address
+    ),
     os_stats: await getOpenseaStats(),
     bv_stats: await getBlockVisionStats(),
   };
