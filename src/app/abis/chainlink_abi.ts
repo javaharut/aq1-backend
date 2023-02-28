@@ -1,7 +1,7 @@
 // This constant describes the ABI interface of the contract, which will provide the price of ETH
 // It looks like a lot, and it is, but this information is generated when we compile the contract
 // We need to let ethers know how to interact with this contract.
-const aggregatorV3InterfaceABI = [
+const abi = [
   {
     inputs: [],
     name: 'decimals',
@@ -59,4 +59,4 @@ const aggregatorV3InterfaceABI = [
   },
 ];
 
-export default aggregatorV3InterfaceABI;
+export default abi;

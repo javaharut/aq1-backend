@@ -1,4 +1,4 @@
-const aqAbi = [
+const abi = [
   { inputs: [], stateMutability: 'nonpayable', type: 'constructor' },
   {
     inputs: [{ internalType: 'address', name: 'operator', type: 'address' }],
@@ -327,4 +327,4 @@ const aqAbi = [
   },
 ];
 
-export default aqAbi;
+export default abi;
