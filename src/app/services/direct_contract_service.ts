@@ -43,16 +43,20 @@ const extractContractData = async (wallet_address: string | null) => {
   const treasuryStake =
     (Number(tokenCount || 0) / constants.TOTAL_BALANCE) * 100;
 
-  const treasuryAssetValue = (treasuryBalance * value) / 10n ** decimals;
+  const treasuryAssetValueTotal = (treasuryBalance +
+    wethBalance +
+    blurPoolBalance) as bigint;
   const ethPriceInUSD = Number((value * 100n) / 10n ** decimals) / 100;
+  const balanceInUSD = (treasuryAssetValueTotal * value) / 10n ** decimals;
 
   return {
     treasuryStake,
     ethPriceInUSD,
-    treasuryBalance: ethers.formatEther(treasuryBalance),
+    treasuryBalanceInEth: ethers.formatEther(treasuryBalance),
     treasuryBalanceInWeth: ethers.formatEther(wethBalance),
     treasuryBalanceInBloorPool: ethers.formatEther(blurPoolBalance),
-    treasuryAssetValue: ethers.formatEther(treasuryAssetValue),
+    treasuryAssetValueInUSD: ethers.formatEther(balanceInUSD),
+    treasuryAssetValueTotal: ethers.formatEther(treasuryAssetValueTotal),
   };
 };
 
